@@ -16,6 +16,9 @@ body {
 	display: flex;
 	flex-direction: column;
 	width: 280px;
+	padding: 20px;
+ 	border: 5px solid gray;
+	border-radius: 30px;
 }
 	
 #btnContainer {
@@ -81,10 +84,23 @@ body {
 #display {
 	display: flex;
 	width: 250px;
-	height: 100px;
+	height: 50px;
 	color: white;
 	justify-content: right;	
 	align-items: flex-end;
 	margin: 10px;
 	font-size: 60px;
+	border-bottom: 1px solid gray;
+}
+
+#answerDisplay {
+	display: flex;
+	width: 250px;
+	height: 50px;
+	color: white;
+	justify-content: right;	
+	align-items: flex-end;
+	margin: 10px;
+	font-size: 60px;
+	border-bottom: 1px solid gray;
 }
