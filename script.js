@@ -44,26 +44,33 @@ let currentOperator = "";
 let btnContainerEl = document.querySelector("#btnContainer");
 let displayEl = document.querySelector("#display");
 let answerDisplay = document.querySelector("#answerDisplay");
-
+let decimal = 0;
 
 
 btnContainerEl.addEventListener("click", (e) => {
 
 	// for when = is clicked
 	if (e.target.textContent == "=") {
-			displayEl.textContent = 0;
-			answerDisplay.textContent = operate(Number(topNumber), 
-						Number(lowerNumber), currentOperator);
-			console.log(operate(Number(topNumber), 
-						Number(lowerNumber), currentOperator));
-			lowerNumber = 0; topNumber = 0; currentOperator = "";
+		displayEl.textContent = 0;
+		answerDisplay.textContent = operate(Number(topNumber), 
+					Number(lowerNumber), currentOperator);
+		console.log(operate(Number(topNumber), 
+					Number(lowerNumber), currentOperator));
+		lowerNumber = 0; topNumber = 0; currentOperator = "";
+		decimal = 0
 
+	} else if (e.target.textContent == ".") {
+		if (decimal == 0 && displayEl.textContent> 0) {
+			displayEl.textContent = displayEl.textContent + "."
+			decimal = 1;
+		}
+	
 
 	// for when AC is clicked
 	} else if (e.target.textContent == "AC") {
 		lowerNumber = 0; topNumber = 0; currentOperator = "";
 		display.textContent = 0; answerDisplay.textContent = "";
-
+		decimal = 0
 
 	
 	// for when a number is clicked
@@ -96,5 +103,6 @@ btnContainerEl.addEventListener("click", (e) => {
 		answerDisplay.textContent = topNumber
 		lowerNumber = 0;
 		displayEl.textContent = lowerNumber;
+		decimal = 0
 	}
 });
