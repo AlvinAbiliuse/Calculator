@@ -59,13 +59,24 @@ btnContainerEl.addEventListener("click", (e) => {
 		lowerNumber = 0; topNumber = 0; currentOperator = "";
 		decimal = 0
 
+
+	// adding decimal point
 	} else if (e.target.textContent == ".") {
 		if (decimal == 0 && displayEl.textContent> 0) {
 			displayEl.textContent = displayEl.textContent + "."
 			decimal = 1;
 		}
 	
-
+	
+	} else if (e.target.textContent =="del") {
+		if (displayEl.textContent.length > 1) {
+			displayEl.textContent = 
+				displayEl.textContent.slice(0, -1);
+			lowerNumber = displayEl.textContent;
+		} else {
+			displayEl.textContent = 0;
+			lowerNumber = 0;
+		}
 	// for when AC is clicked
 	} else if (e.target.textContent == "AC") {
 		lowerNumber = 0; topNumber = 0; currentOperator = "";
@@ -83,6 +94,7 @@ btnContainerEl.addEventListener("click", (e) => {
 					e.target.textContent;
 			lowerNumber = displayEl.textContent;
 		}
+		console.log(typeof displayEl.textContent);
 
 
 	// for when an operator is clicked
