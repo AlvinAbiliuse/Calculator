@@ -35,22 +35,11 @@ const operate =  (n1, n2, operator) => {
 
 
 
-let topNumber = 0;
-let lowerNumber = 0;
-let currentOperator = "";
 
 
-
-let btnContainerEl = document.querySelector("#btnContainer");
-let displayEl = document.querySelector("#display");
-let answerDisplay = document.querySelector("#answerDisplay");
-let decimal = 0;
-
-
-btnContainerEl.addEventListener("click", (e) => {
-
+function calculate(e) {
 	// for when = is clicked
-	if (e.target.textContent == "=") {
+	if (e == "=" || e == "Enter") {
 		displayEl.textContent = 0;
 		answerDisplay.textContent = operate(Number(topNumber), 
 					Number(lowerNumber), currentOperator);
@@ -61,14 +50,14 @@ btnContainerEl.addEventListener("click", (e) => {
 
 
 	// adding decimal point
-	} else if (e.target.textContent == ".") {
+	} else if (e == ".") {
 		if (decimal == 0 && displayEl.textContent> 0) {
 			displayEl.textContent = displayEl.textContent + "."
 			decimal = 1;
 		}
 	
 	
-	} else if (e.target.textContent =="del") {
+	} else if (e =="del" || e == "backspace") {
 		if (displayEl.textContent.length > 1) {
 			displayEl.textContent = 
 				displayEl.textContent.slice(0, -1);
@@ -78,37 +67,37 @@ btnContainerEl.addEventListener("click", (e) => {
 			lowerNumber = 0;
 		}
 	// for when AC is clicked
-	} else if (e.target.textContent == "AC") {
+	} else if (e == "AC" || e == "Delete") {
 		lowerNumber = 0; topNumber = 0; currentOperator = "";
 		display.textContent = 0; answerDisplay.textContent = "";
 		decimal = 0
 
 	
 	// for when a number is clicked
-	} else if (Number.isInteger(Number(e.target.textContent))) {
+	} else if (Number.isInteger(Number(e))) {
 		if (displayEl.textContent == 0) {
-			displayEl.textContent = e.target.textContent;
+			displayEl.textContent = e;
 			lowerNumber = displayEl.textContent;
 		} else {
-			displayEl.textContent = displayEl.textContent + 
-					e.target.textContent;
+			displayEl.textContent = displayEl.textContent + e;
 			lowerNumber = displayEl.textContent;
 		}
 		console.log(typeof displayEl.textContent);
 
 
 	// for when an operator is clicked
-	} else if (e.target.textContent.length > 0) {
+	} else if (e == "%" || e == "%" || e == "÷" || e == "x" ||
+			e == "-" || e == "+" || e == "*") {
 		if (currentOperator.length > 0 && 
 		topNumber > 0 && lowerNumber > 0) {
 			topNumber = operate(Number(lowerNumber),
 				 Number(topNumber), currentOperator);
-			currentOperator = e.target.textContent;
+			currentOperator = e;
 		} else if (topNumber == 0) {
-			currentOperator = e.target.textContent;
+			currentOperator = e;
 			topNumber = lowerNumber;
 		} else {	
-			currentOperator = e.target.textContent;
+			currentOperator = e;
 			topNumber = operate(Number(lowerNumber),
 						 Number(topNumber), currentOperator);
 		}
@@ -117,4 +106,26 @@ btnContainerEl.addEventListener("click", (e) => {
 		displayEl.textContent = lowerNumber;
 		decimal = 0
 	}
-});
+};
+
+
+
+let topNumber = 0;
+let lowerNumber = 0;
+let currentOperator = "";
+
+
+
+let btnContainerEl = document.querySelector("#btnContainer");
+let displayEl = document.querySelector("#display");
+let answerDisplay = document.querySelector("#answerDisplay");
+
+let decimal = 0;
+
+
+
+
+btnContainerEl.addEventListener("click", (e) => calculate(
+											e.target.textContent));
+
+document.addEventListener("keydown", (e) => calculate(e.key));
